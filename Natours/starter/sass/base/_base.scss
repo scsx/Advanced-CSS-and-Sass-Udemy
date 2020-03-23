@@ -1,0 +1,20 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit; // from body
+}
+
+html {
+    font-size: 62.5%; // Default is 16px; 100/16 = 62.5%. We can set it to 10px while keeping user's ability to change browser font size */
+}
+
+body {
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+    color: $color-grey-dark;
+    padding: 3rem;
+    box-sizing: border-box;
+}
