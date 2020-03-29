@@ -8,6 +8,7 @@
     padding-left: 9rem;
     font-size: $default-font-size;
     transform: skewX(-12deg);
+    z-index: 1;
 
     &__shape {
         position: relative;
