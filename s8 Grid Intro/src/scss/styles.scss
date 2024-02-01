@@ -2,8 +2,8 @@
   font-family: 'Work Sans', sans-serif;
 }
 
-h1 {
-  font-size: 5rem;
+h3 {
+  font-size: 3rem;
   text-align: center;
 }
 
@@ -13,43 +13,203 @@ h1 {
   margin: 30px auto;
 
   display: grid;
-  grid-template-rows: 150px 150px;
-  grid-template-columns: 150px 150px 150px;
+  grid-template-rows: repeat(2, 150px);
+  //grid-template-columns: repeat(2, 150px) 1fr;
+  //grid-template-columns: 1fr 3fr 2fr;
+  grid-template-columns: repeat(3, 1fr);
 
   // Isto
   row-gap: 30px;
   column-gap: 30px;
   // É o mesmo que isto:
   gap: 30px;
+
+  .item {
+    padding: 20px;
+    font-size: 24px;
+    font-weight: 700;
+    color: white;
+
+    &--1 {
+      background-color: orangered;
+      // Isto
+      /* grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 2;
+    grid-column-end: 3; */
+      // É o mesmo que isto:
+      // grid-area: 1 / 3 / 2 / 4;
+      // E que:
+      grid-row: 2 / 3;
+      grid-column: 2 / 3;
+    }
+
+    &--2 {
+      background-color: yellowgreen;
+      //grid-column: 1 / span 3;
+      grid-column: 2 / -1; // -1 = all until the end.
+    }
+
+    &--3 {
+      background-color: blueviolet;
+      grid-column: 1 / 3;
+    }
+
+    &--4 {
+      background-color: palevioletred;
+    }
+
+    &--5 {
+      background-color: royalblue;
+      grid-row: 1 / 2;
+      grid-column: 3 / 4;
+    }
+
+    &--6 {
+      background-color: goldenrod;
+      grid-row: 1 / 2;
+      grid-column: 2 / 3;
+    }
+  }
 }
 
-.item {
-  padding: 20px;
-  font-size: 24px;
-  font-weight: 700;
-  color: white;
+// Method 1: Line Numbers
+/* .challenge {
+  width: 1000px;
+  margin: 3rem auto;
+  display: grid;
+  grid-template-rows: 100px 200px 400px 100px;
+  grid-template-columns: repeat(3, 1fr) 200px;
+  gap: 30px;
 
-  &--1 {
+  & > * {
     background-color: orangered;
+    padding: 20px;
+    color: white;
+    font-size: 24px;
+    font-weight: 700;
   }
 
-  &--2 {
-    background-color: yellowgreen;
+  header {
+    grid-column: 1 / -1;
   }
 
-  &--3 {
-    background-color: blueviolet;
+  .sidebar {
+    grid-column: 4 / 5;
+    grid-row: 2 / span 2;
   }
 
-  &--4 {
-    background-color: palevioletred;
+  .main {
+    grid-column: 1 / 4;
   }
 
-  &--5 {
-    background-color: royalblue;
+  footer {
+    grid-column: 1 / -1;
+  }
+} */
+
+// Method 2: Line Names
+/* .challenge {
+  width: 1000px;
+  margin: 3rem auto;
+  display: grid;
+  grid-template-rows: [header-start] 100px [header-end box-start] 200px [box-end main-start] 400px [main-end footer-start] 100px [footer-end];
+  grid-template-columns: repeat(3, [col-start] 1fr [col-end]) 200px [grid-end];
+  gap: 30px;
+
+  & > * {
+    background-color: orangered;
+    padding: 20px;
+    color: white;
+    font-size: 24px;
+    font-weight: 700;
   }
 
-  &--6 {
-    background-color: goldenrod;
+  header {
+    grid-column: col-start 1 / grid-end;
+  }
+
+  .sidebar {
+    grid-column: col-end 3 / 5;
+    grid-row: box-start / main-end;
+  }
+
+  .main {
+    grid-column: col-start 1 / col-end 3;
+  }
+
+  footer {
+    grid-column: 1 / -1;
+  }
+} */
+
+// Method 3: Name Grid Areas
+.challenge {
+  width: 1000px;
+  margin: 3rem auto;
+  display: grid;
+  gap: 30px;
+  grid-template-rows: 100px 200px 400px 100px;
+  grid-template-columns: repeat(3, 1fr) 200px;
+
+  // dots are empty cells:
+  /*   grid-template-areas:
+    '. head head .'
+    'box box box side'
+    'main main main side'
+    'foot foot foot foot'; */
+  grid-template-areas:
+    'head head head head'
+    'box box box side'
+    'main main main side'
+    'foot foot foot foot';
+
+  & > * {
+    background-color: orangered;
+    padding: 20px;
+    color: white;
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  header {
+    grid-area: head;
+  }
+
+  .sidebar {
+    grid-area: side;
+  }
+
+  .main {
+    grid-area: main;
+  }
+
+  footer {
+    grid-area: foot;
+  }
+}
+
+.third {
+  width: 1000px;
+  margin: 3rem auto;
+  background-color: #dddac9;
+  display: grid;
+  gap: 30px;
+
+  grid-template-rows: repeat(2, 150px);
+  grid-template-columns: repeat(2, 1fr);
+
+  // Implicit grid: afecta os elementos "que sobram", que não estão na parte da grid definida explicitamente acima:
+  grid-auto-rows: 80px;
+  // Como flex-direction:
+  grid-auto-flow: column;
+  grid-auto-columns: .5fr;
+
+  .item {
+    padding: 20px;
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    background-color: dodgerblue;
   }
 }
